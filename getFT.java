@@ -13,27 +13,6 @@ public class getFT {
 	public static class Map extends MapReduceBase implements Mapper<LongWritable, Text, Text, IntWritable> {
 		private final static IntWritable one = new IntWritable(1);
 		private Text word = new Text();
-		//check if string can be converted to int
-		public boolean isInteger( String input ) {
-		    try {
-		        Integer.parseInt( input );
-		        return true;
-		    }
-		    catch( Exception e ) {
-		        return false;
-		    }
-		}
-		
-		public boolean isValid( String input ) {
-		    try {
-		        Double.parseDouble( input );
-		        return true;
-		    }
-		    catch( Exception e ) {
-		        return false;
-		    }
-		}
-		
 
 		public void map(LongWritable key, Text value, OutputCollector<Text, IntWritable> output, Reporter reporter) throws IOException {
 			String line = value.toString();
@@ -46,7 +25,13 @@ public class getFT {
 			catch(Exception e){
 				return;
 			}
-			if(year >= 2008){
+			if(year < 2008){
+				if(columns[14] == "NA") return;
+				word.set(columns[14]);	
+				output.collect(word, one);
+				return;
+			}
+			else{
 				double delay = 0;
 				try{
 					delay = Double.parseDouble(columns[45]);
@@ -55,12 +40,6 @@ public class getFT {
 					return;
 				}
 				word.set(Integer.toString((int)delay));
-				output.collect(word, one);
-				return;
-			}
-			else if(year < 2008){
-				if(columns[14] == "NA") return;
-				word.set(columns[14]);	
 				output.collect(word, one);
 				return;
 			}
@@ -80,7 +59,7 @@ public class getFT {
 
 	public static void main(String[] args) throws Exception {
 		JobConf conf = new JobConf(getFT.class);
-		conf.setJobName("wordcount");
+		conf.setJobName("getFrequencyTable");
 
 		conf.setOutputKeyClass(Text.class);
 		conf.setOutputValueClass(IntWritable.class);
