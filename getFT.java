@@ -1,26 +1,70 @@
-//package org.myorg;
 import java.io.IOException;
 import java.util.*;
 
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.conf.*;
 import org.apache.hadoop.io.*;
 import org.apache.hadoop.mapred.*;
-import org.apache.hadoop.util.*;
+import org.apache.hadoop.mapred.Mapper;
+import org.apache.hadoop.mapred.Reducer;
 
-public class WordCount {
+
+public class getFT {
 
 	public static class Map extends MapReduceBase implements Mapper<LongWritable, Text, Text, IntWritable> {
 		private final static IntWritable one = new IntWritable(1);
 		private Text word = new Text();
+		//check if string can be converted to int
+		public boolean isInteger( String input ) {
+		    try {
+		        Integer.parseInt( input );
+		        return true;
+		    }
+		    catch( Exception e ) {
+		        return false;
+		    }
+		}
+		
+		public boolean isValid( String input ) {
+		    try {
+		        Double.parseDouble( input );
+		        return true;
+		    }
+		    catch( Exception e ) {
+		        return false;
+		    }
+		}
+		
 
 		public void map(LongWritable key, Text value, OutputCollector<Text, IntWritable> output, Reporter reporter) throws IOException {
 			String line = value.toString();
-			StringTokenizer tokenizer = new StringTokenizer(line);
-			while (tokenizer.hasMoreTokens()) {
-				word.set(tokenizer.nextToken());
-				output.collect(word, one);
+			String[] columns = line.split(",");
+			//StringTokenizer tokenizer = new StringTokenizer(line,",");
+			int year = 0;
+			try{
+				year = Integer.parseInt(columns[0]);
 			}
+			catch(Exception e){
+				return;
+			}
+			if(year >= 2008){
+				double delay = 0;
+				try{
+					delay = Double.parseDouble(columns[45]);
+				}
+				catch(Exception e){
+					return;
+				}
+				word.set(Integer.toString((int)delay));
+				output.collect(word, one);
+				return;
+			}
+			else if(year < 2008){
+				if(columns[14] == "NA") return;
+				word.set(columns[14]);	
+				output.collect(word, one);
+				return;
+			}
+			
 		}
 	}
 
@@ -35,7 +79,7 @@ public class WordCount {
 	}
 
 	public static void main(String[] args) throws Exception {
-		JobConf conf = new JobConf(WordCount.class);
+		JobConf conf = new JobConf(getFT.class);
 		conf.setJobName("wordcount");
 
 		conf.setOutputKeyClass(Text.class);
