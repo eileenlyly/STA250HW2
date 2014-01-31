@@ -17,7 +17,7 @@ public class getFT {
 		public void map(LongWritable key, Text value, OutputCollector<Text, IntWritable> output, Reporter reporter) throws IOException {
 			String line = value.toString();
 			String[] columns = line.split(",");
-			//StringTokenizer tokenizer = new StringTokenizer(line,",");
+			
 			int year = 0;
 			try{
 				year = Integer.parseInt(columns[0]);
@@ -34,7 +34,7 @@ public class getFT {
 			else{
 				double delay = 0;
 				try{
-					delay = Double.parseDouble(columns[45]);
+					delay = Double.parseDouble(columns[44]);
 				}
 				catch(Exception e){
 					return;
