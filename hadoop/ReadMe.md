@@ -16,7 +16,9 @@ For example, we can set DFS block size to be 32MB by adding the following lines 
 </property>
 ```
 An alternative way to set the number of map tasks is by manually set the `JobConf` in the Java code:
-```conf.setNumMapTasks(int num);```
+```
+conf.setNumMapTasks(int num);
+```
 But this will not set the number below that which Hadoop determines via splitting the input data.
 Run Hadoop
 ---------
@@ -57,3 +59,4 @@ We can get the details of Hadoop jobs from the output in terminal or the log fil
 | 2 MB      |  1147 s | 
 
 The shortest execution time comes when DFS block size is between 4 MB and 8 MB.
+![](chart.jpg)
