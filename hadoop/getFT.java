@@ -19,18 +19,21 @@ public class getFT {
 			String[] columns = line.split(",");
 			
 			int year = 0;
+			//check if the row is a header
 			try{
 				year = Integer.parseInt(columns[0]);
 			}
 			catch(Exception e){
 				return;
 			}
+			//files before 2008, read column 15
 			if(year < 2008){
 				if(columns[14] == "NA") return;
 				word.set(columns[14]);	
 				output.collect(word, one);
 				return;
 			}
+			//files after 2008, read column 45
 			else{
 				double delay = 0;
 				try{
@@ -60,12 +63,12 @@ public class getFT {
 	public static void main(String[] args) throws Exception {
 		JobConf conf = new JobConf(getFT.class);
 		conf.setJobName("getFrequencyTable");
+		//conf.setNumMapTasks(8);
 
 		conf.setOutputKeyClass(Text.class);
 		conf.setOutputValueClass(IntWritable.class);
 
 		conf.setMapperClass(Map.class);
-		//conf.setCombinerClass(Reduce.class);
 		conf.setReducerClass(Reduce.class);
 
 		conf.setInputFormat(TextInputFormat.class);
