@@ -33,9 +33,11 @@ Use `jps` to check all the nodes are ready.
 - Save result to local
 `bin/hadoop dfs get <output>/part-00000 <pathtolocal>`
 >
+
 Execution Time
 ---------
 We can get the details of Hadoop jobs from the output in terminal or the log files.
+
 | DFSBlockSize     |  Time | 
 | :--------: | :------:| 
 | 128 MB  | 4644 s | 
@@ -43,4 +45,5 @@ We can get the details of Hadoop jobs from the output in terminal or the log fil
 | 8 MB      |  929 s| 
 | 4 MB     |   960 s | 
 | 2 MB      |  1147 s | 
+
 The shortest execution time comes when DFS block size is between 4 MB and 8 MB.
