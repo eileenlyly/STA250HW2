@@ -16,12 +16,12 @@ For example, we can set DFS block size to be 32MB by adding the following lines 
 </property>
 ```
 An alternative way to set the number of map tasks is by manually set the `JobConf` in the Java code:
-`conf.setNumMapTasks(int num);`
+```conf.setNumMapTasks(int num);```
 But this will not set the number below that which Hadoop determines via splitting the input data.
 Run Hadoop
 ---------
 I assume you have already setup Hadoop properly. You can find a bunch of tutorials on how to install Hadoop.
->- Start Hadoop
+- Start Hadoop
 ```
 sbin/start-all.sh
 ```
@@ -43,7 +43,6 @@ bin/hadoop jar getFT.jar getFT <input> <output>
 ```
 bin/hadoop dfs get <output>/part-00000 <pathtolocal>
 ```
->
 
 Execution Time
 ---------
