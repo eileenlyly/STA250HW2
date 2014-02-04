@@ -48,7 +48,8 @@ bin/hadoop dfs -get <output>/part-00000 <pathtolocal>
 
 Result
 ---------
-Result is the same as we get HW1
+Result is the same as we got from HW1:
+
 **Mean: 6.5665**
 **SD = 31.5563** 
 **Median = 0**
