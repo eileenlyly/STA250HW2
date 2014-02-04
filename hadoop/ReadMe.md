@@ -43,8 +43,15 @@ bin/hadoop jar getFT.jar getFT <input> <output>
 ``` 
 - Save result to local
 ```
-bin/hadoop dfs get <output>/part-00000 <pathtolocal>
+bin/hadoop dfs -get <output>/part-00000 <pathtolocal>
 ```
+
+Result
+---------
+Result is the same as we get HW1
+**Mean: 6.5665**
+**SD = 31.5563** 
+**Median = 0**
 
 Execution Time
 ---------
@@ -60,3 +67,5 @@ We can get the details of Hadoop jobs from the output in terminal or the log fil
 
 The shortest execution time comes when DFS block size is between 4 MB and 8 MB.
 ![](chart.jpg)
+
+The running time in R is trivial, which is only 0.3s.
