@@ -7,7 +7,7 @@ I apply Hadoop to get the frequency table of the delay data. The idea is very si
 Then I wrote a simple R code to calculate the mean, sd and median.
 Set DFS Block Size
 ---------
-The number of maps is driven by the number of DFS blocks in the input files. Here I adjust DFS block size to adjust the number of maps. The default block size for Hadoop is 128 MB. By modifying `hdfs-site.xml`, we can set it to any size we want (in byte). Note that this value must be a multiplier of 512 (the default size of io.bytes.per.checksum), or hadoop will throw the exception `"block size should be a multiple of io.bytes.per.checksum"`.
+I have only one computer available so I can only apply single-node cluster. But I can adjust the number of maps to increase efficiency. The number of maps is driven by the number of DFS blocks in the input files. Here I adjust DFS block size to adjust the number of maps. The default block size for Hadoop is 128 MB. By modifying `hdfs-site.xml`, we can set it to any size we want (in byte). Note that this value must be a multiplier of 512 (the default size of io.bytes.per.checksum), or hadoop will throw the exception `"block size should be a multiple of io.bytes.per.checksum"`.
 For example, we can set DFS block size to be 32MB by adding the following lines between the `configuration` tag.
 ```
 <property>
