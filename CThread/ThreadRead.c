@@ -95,7 +95,7 @@ int getDelayVal(char *line, int type){
 void combineFT(FreqTable *tables, int n){
 	FreqTable *res = constructFT(1, NULL);
 	for(int i = 0; i < n; i++){
-		for(int j = MIN_DELAY; j < MAX_DELAY; j++)
+		for(int j = 0; j < res -> size; j++)
 			res -> count[j] += (tables+i) -> count[j];
 	}
     /*for(int i = 0; i < MAX_DELAY - MIN_DELAY; i++){
@@ -105,7 +105,7 @@ void combineFT(FreqTable *tables, int n){
 	}*/
 	FILE *fp;
 	fp = fopen("./output.txt","w");
-	for(int i = 0; i < MAX_DELAY - MIN_DELAY; i++){
+	for(int i = 0; i < res -> size; i++){
 		if(res -> count[i] != 0){
 			fprintf(fp, "%d %lu\n", i + MIN_DELAY, res -> count[i]);
 		}
