@@ -6,17 +6,16 @@
 #include <glob.h>
 #include <time.h>
 
-# define FILE_DIR "airlines/"
+# define DATA_DIR "./airlines/*.*"
 # define MAX_DELAY 3000
 # define MIN_DELAY -1500
 # define MAX_NUM_CHARS 2000
-# define COL_NUM1 14
-# define COL_NUM2 44
-# define FILE_NUM 82
-# define THREAD_NUM 10
+# define COL_NUM1 15
+# define COL_NUM2 45
+# define THREAD_NUM 9
 
 char **getFiles(char *path);
-char **randomizeFiles(char **files);
+void randomizeFiles(char **files);
 
 typedef struct{
 	int size;
@@ -24,9 +23,13 @@ typedef struct{
 	char * rawfile;
 } FreqTable;
 
+extern int FILE_NUM;
 FreqTable *constructFT(int n, char **files);
 void *assignTables(void *arg);
 int getNext(int cur);
 void readDelays(FreqTable *tables, int first, int last);
 int getDelayVal(char *line, int type);
 void combineFT(FreqTable *tables, int n);
+void freeFiles(char **files);
+void deconstructFT(FreqTable *tables, int n);
+//extern pthread_mutex_t  fileMutex;
