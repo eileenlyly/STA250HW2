@@ -6,13 +6,14 @@
 #include <glob.h>
 #include <time.h>
 
+//Modify data directory here
 # define DATA_DIR "./airlines/*.*"
 # define MAX_DELAY 3000
 # define MIN_DELAY -1500
 # define MAX_NUM_CHARS 2000
 # define COL_NUM1 15
 # define COL_NUM2 45
-# define THREAD_NUM 9
+# define THREAD_NUM 8
 
 char **getFiles(char *path);
 void randomizeFiles(char **files);
